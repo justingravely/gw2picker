@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap" rel="stylesheet">
+  <title>Pizza Haileys</title>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <div id="resultBox">
+    </div>
+    <div id="uiBox">
+      <div class="buttonWrap">
+        <button class="buttons" id="roll">Roll</button>
+        <button class="buttons" id="accept">Okay</button>
+        <button class="buttons" id="oops">Oops</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    //make buttons bounce on mousedown, release ect
+    var options = [['Guardian', 'Human', 'Sylvari', 'Charr'], ['Warrior', 'Norn', 'Sylvari'], ['Revenant', 'Norn'], ['Ranger', 'Norn', 'Sylvari', 'Asura'], ['Thief', 'Human', 'Asura', 'Charr'], ['Engineer', 'Norn', 'Sylvari', 'Sylvari'], ['Elementalist', 'Norn', 'Human',
+      'Human', 'Asura'], ['Necromancer', 'Norn', 'Sylvari'], ['Mesmer', 'Human']];
+    var backUp = [['Guardian', 'Human', 'Sylvari', 'Charr'], ['Warrior', 'Norn', 'Sylvari'], ['Revenant', 'Norn'], ['Ranger', 'Norn', 'Sylvari', 'Asura'], ['Thief', 'Human', 'Asura', 'Charr'], ['Engineer', 'Norn', 'Sylvari', 'Sylvari'], ['Elementalist', 'Norn', 'Human',
+      'Human', 'Asura'], ['Necromancer', 'Norn', 'Sylvari'], ['Mesmer', 'Human']];
+    var resultBox = document.getElementById("resultBox");
+    var roll = document.getElementById("roll");
+    var accept = document.getElementById("accept");
+    var what = document.getElementById("what");
+    var prevWinner = '';
+    var prevBG = '';
+    var hasStarted = 0;
+    var currentBG = '';
+    var oops = document.getElementById("oops")
+    oops.addEventListener('click', function() {
+      oopsFunc();
+    })
+    roll.addEventListener('click', function() {
+      result(main());
+    });
+    function oopsFunc() {
+      options = backUp;
+      resultBox.style.backgroundImage = 'url("classART/reset.png")';
+    }
+    function checker() {
+      let counter = 0;
+      if (hasStarted = 1 && currentBG == prevBG) {
+        for (let i = 0; i < options.length; i++) {
+          for (let j = 0; j < options[i].length; j++) {
+            // console.log(options[i][j]);
+            counter++
+          }
+        }
+        // console.log(counter);
+        if (counter > 9) return result(main());
+      }
+      
+    }
+    accept.addEventListener('click', function(){cutter()});
+    function cutter() {
+      let arr = prevWinner.split(" ").reverse();
+      console.log("prev Winner Below")
+      console.log(arr);
+      for (let i = 0; i < options.length; i++) {
+        if (options[i][0] == arr[0]) {
+          for (let j = 0; j < options[i].length; j++) {
+            if (options[i][j] == arr[1]) {
+              options[i].splice(j, 1)
+              console.log(options[i]);
+            }
+          }
+
+        }
+      }
+    }
+    //22
+    function main() {
+      prevBG = resultBox.style.backgroundImage;
+      // console.log(prevBG);
+      var rngClass = options[Math.floor(Math.random() * options.length)];
+      var rngRace = Math.floor(Math.random() * rngClass.length);
+      if (rngRace == 0) rngRace = 1;
+      console.log(options);
+
+      var answer = rngClass[rngRace] + " " + rngClass[0];
+      return answer;
+    }
+    function result(answer) {
+      switch(answer) {
+        case 'Human Guardian':
+        resultBox.style.backgroundImage = 'url("classART/humanGuardian.png")';
+        break;
+        case 'Sylvari Guardian':
+        resultBox.style.backgroundImage = 'url("classART/SylvariGuardian.png")';
+        break;
+        case 'Charr Guardian':
+        resultBox.style.backgroundImage = 'url("classART/CharrGuardian.png")';
+        break;
+        case 'Norn Warrior':
+        resultBox.style.backgroundImage = 'url("classART/NornWarrior.png")';
+        break;
+        case 'Sylvari Warrior':
+        resultBox.style.backgroundImage = 'url("classART/SylvariWarrior.png")';
+        break;
+        case 'Norn Revenant':
+        resultBox.style.backgroundImage = 'url("classART/NornRevenant.png")';
+        break;
+        case 'Norn Ranger':
+        resultBox.style.backgroundImage = 'url("classART/NornRanger.png")';
+        break;
+        case 'Sylvari Ranger':
+        resultBox.style.backgroundImage = 'url("classART/SylvariRanger.png")';
+        break;
+        case 'Asura Ranger':
+        resultBox.style.backgroundImage = 'url("classART/AsuraRanger.png")';
+        break;
+        case 'Human Thief':
+        resultBox.style.backgroundImage = 'url("classART/HumanThief.png")';
+        break;
+        case 'Asura Thief':
+        resultBox.style.backgroundImage = 'url("classART/AsuraThief.png")';
+        break;
+        case 'Charr Thief':
+        resultBox.style.backgroundImage = 'url("classART/CharrThief.png")';
+        break;
+        case 'Norn Engineer':
+        resultBox.style.backgroundImage = 'url("classART/NornEngineer.png")';
+        break;
+        case 'Sylvari Engineer':
+        resultBox.style.backgroundImage = 'url("classART/SylvariEngineer.png")';
+        break;
+        case 'Norn Elementalist':
+        resultBox.style.backgroundImage = 'url("classART/NornElementalist.png")';
+        break;
+        case 'Human Elementalist':
+        resultBox.style.backgroundImage = 'url("classART/HumanElementalist.png")';
+        break;
+        case 'Asura Elementalist':
+        resultBox.style.backgroundImage = 'url("classART/AsuraElementalist.png")';
+        break;
+        case 'Norn Necromancer':
+        resultBox.style.backgroundImage = 'url("classART/NornNecromancer.png")';
+        break;
+        case 'Sylvari Necromancer':
+        resultBox.style.backgroundImage = 'url("classART/SylvariNecromancer.png")';
+        break;
+        case 'Human Mesmer':
+        resultBox.style.backgroundImage = 'url("classART/HumanMesmer.png")';
+        break;
+      }
+      hasStarted = 1;
+      currentBG = resultBox.style.backgroundImage;
+      prevWinner = answer;
+      checker();
+      return answer;
+    }
+
+  </script>
+
+</body>
+
+</html>
